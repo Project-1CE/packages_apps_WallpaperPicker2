@@ -87,13 +87,17 @@ constructor(
             if (wallpaperModel == null || !wallpaperModel.shouldShowInformationFloatingSheet()) {
                 null
             } else {
+
                 InformationFloatingSheetViewModel(
                     wallpaperModel.commonWallpaperData.attributions,
                     if (wallpaperModel.commonWallpaperData.exploreActionUrl.isNullOrEmpty()) {
                         null
                     } else {
                         wallpaperModel.commonWallpaperData.exploreActionUrl
-                    }
+                    },
+                    (wallpaperModel as? LiveWallpaperModel)?.let { liveWallpaperModel ->
+                        liveWallpaperModel.liveWallpaperData.contextDescription?.let { it }
+                    },
                 )
             }
         }
@@ -479,6 +483,13 @@ constructor(
             _isCustomizeChecked.value = false
         }
     }
+
+    fun isAnyActionChecked(): Boolean =
+        _isInformationChecked.value ||
+            _isDeleteChecked.value ||
+            _isEditChecked.value ||
+            _isCustomizeChecked.value ||
+            _isEffectsChecked.value
 
     private fun uncheckAllOthersExcept(action: Action) {
         if (action != INFORMATION) {
