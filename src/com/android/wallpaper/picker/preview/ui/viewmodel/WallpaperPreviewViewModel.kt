@@ -21,6 +21,7 @@ import android.stats.style.StyleEnums
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.wallpaper.config.BaseFlags
 import com.android.wallpaper.model.Screen
 import com.android.wallpaper.model.wallpaper.DeviceDisplayType
 import com.android.wallpaper.picker.BasePreviewActivity.EXTRA_VIEW_AS_HOME
@@ -101,6 +102,9 @@ constructor(
     private val _currentPreviewScreen = MutableStateFlow(PreviewScreen.SMALL_PREVIEW)
     val currentPreviewScreen = _currentPreviewScreen.asStateFlow()
 
+    val shouldEnableClickOnPager: Flow<Boolean> =
+        _currentPreviewScreen.map { it == PreviewScreen.SMALL_PREVIEW }
+
     val smallPreviewTabs = Screen.entries.toList()
 
     private val _smallPreviewSelectedTab = MutableStateFlow(getWallpaperPreviewSource())
@@ -121,12 +125,6 @@ constructor(
             return false
         }
         return false
-    }
-
-    fun handlePagerTapped() {
-        if (_currentPreviewScreen.value == PreviewScreen.SMALL_PREVIEW) {
-            _currentPreviewScreen.value = PreviewScreen.FULL_PREVIEW
-        }
     }
 
     fun getSmallPreviewTabIndex(): Int {
@@ -330,10 +328,30 @@ constructor(
     val setWallpaperDialogSelectedScreens: StateFlow<Set<Screen>> =
         _setWallpaperDialogSelectedScreens.asStateFlow()
 
+    val isApplyButtonEnabled: Flow<Boolean> =
+        setWallpaperDialogSelectedScreens.map { it.isNotEmpty() }
+
+    val isHomeCheckBoxChecked: Flow<Boolean> =
+        setWallpaperDialogSelectedScreens.map { it.contains(Screen.HOME_SCREEN) }
+
+    val isLockCheckBoxChecked: Flow<Boolean> =
+        setWallpaperDialogSelectedScreens.map { it.contains(Screen.LOCK_SCREEN) }
+
+    val onHomeCheckBoxChecked: Flow<() -> Unit> = flowOf {
+        onSetWallpaperDialogScreenSelected(Screen.HOME_SCREEN)
+    }
+
+    val onLockCheckBoxChecked: Flow<() -> Unit> = flowOf {
+        onSetWallpaperDialogScreenSelected(Screen.LOCK_SCREEN)
+    }
+
     fun onSetWallpaperDialogScreenSelected(screen: Screen) {
         val previousSelection = _setWallpaperDialogSelectedScreens.value
         _setWallpaperDialogSelectedScreens.value =
-            if (previousSelection.contains(screen) && previousSelection.size > 1) {
+            if (
+                previousSelection.contains(screen) &&
+                    (previousSelection.size > 1 || BaseFlags.get().isNewPickerUi())
+            ) {
                 previousSelection.minus(screen)
             } else {
                 previousSelection.plus(screen)
