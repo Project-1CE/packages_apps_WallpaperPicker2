@@ -16,12 +16,11 @@
 
 package com.android.wallpaper.picker.customization.ui
 
-import android.annotation.TargetApi
-import android.content.pm.ActivityInfo
-import android.content.res.Configuration
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
@@ -98,11 +98,8 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
 
     private var fullyCollapsed = false
     private var navBarHeight: Int = 0
-    private var configuration: Configuration? = null
 
     private var onBackPressedCallback: OnBackPressedCallback? = null
-
-    private var customizationOptionFloatingSheetViewMap: Map<CustomizationOption, View>? = null
 
     private val startForResult =
         this.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
@@ -112,8 +109,6 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        configuration = Configuration(resources.configuration)
-
         val isFromLauncher =
             activity?.intent?.let { ActivityUtils.isLaunchedFromLauncher(it) } ?: false
         if (isFromLauncher) {
@@ -150,7 +145,7 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
             WindowInsetsCompat.CONSUMED
         }
 
-        customizationOptionFloatingSheetViewMap =
+        val customizationOptionFloatingSheetViewMap =
             customizationOptionUtil.initFloatingSheet(
                 pickerMotionContainer.requireViewById(
                     R.id.customization_option_floating_sheet_container
@@ -165,7 +160,13 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
                         currentId == R.id.expanded_header_primary ||
                             currentId == R.id.collapsed_header_primary
                     ) {
+                        // This is when we complete the transition back to the primary screen
                         pickerMotionContainer.setTransition(R.id.transition_primary)
+                        // Reset the preview only after the transition is completed, because the
+                        // reset will trigger the animation of the UI components in the floating
+                        // sheet content, which can possibly be interrupted by the floating sheet
+                        // translating down.
+                        customizationPickerViewModel.customizationOptionsViewModel.resetPreview()
                     }
                 }
             }
@@ -212,7 +213,7 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
             viewModel = customizationPickerViewModel,
             colorUpdateViewModel = colorUpdateViewModel,
             customizationOptionsBinder = customizationOptionsBinder,
-            lifecycleOwner = this,
+            lifecycleOwner = viewLifecycleOwner,
             navigateToPrimary = {
                 if (pickerMotionContainer.currentState == R.id.secondary) {
                     pickerMotionContainer.transitionToState(
@@ -223,9 +224,20 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
             },
             navigateToSecondary = { screen ->
                 if (pickerMotionContainer.currentState != R.id.secondary) {
-                    setCustomizationOptionFloatingSheet(view, pickerMotionContainer, screen) {
-                        fullyCollapsed = pickerMotionContainer.progress == 1.0f
-                        pickerMotionContainer.transitionToState(R.id.secondary)
+                    customizationOptionFloatingSheetViewMap[screen]?.let { floatingSheetView ->
+                        setCustomizationOptionFloatingSheet(
+                            floatingSheetViewContent = floatingSheetView,
+                            floatingSheetContainer =
+                                view.requireViewById(
+                                    R.id.customization_option_floating_sheet_container
+                                ),
+                            motionContainer = pickerMotionContainer,
+                            onComplete = {
+                                // Transition to secondary screen after content is set
+                                fullyCollapsed = pickerMotionContainer.progress == 1.0f
+                                pickerMotionContainer.transitionToState(R.id.secondary)
+                            },
+                        )
                     }
                 }
             },
@@ -236,6 +248,14 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
                         addToBackStack(null)
                     }
                 }
+            },
+            navigateToMoreLockScreenSettingsActivity = {
+                activity?.startActivity(Intent(Settings.ACTION_LOCKSCREEN_SETTINGS))
+            },
+            navigateToColorContrastSettingsActivity = {
+                activity?.startActivity(
+                    Intent(Settings.ACTION_ACCESSIBILITY_COLOR_CONTRAST_SETTINGS)
+                )
             },
         )
 
@@ -269,19 +289,6 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
         onBackPressedCallback?.remove()
     }
 
-    @TargetApi(36)
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        configuration?.let {
-            val diff = newConfig.diff(it)
-            val isAssetsPathsChange = diff and ActivityInfo.CONFIG_ASSETS_PATHS != 0
-            if (isAssetsPathsChange) {
-                colorUpdateViewModel.updateColors()
-            }
-        }
-        configuration?.setTo(newConfig)
-    }
-
     private fun setupToolbar(navButton: FrameLayout, toolbar: Toolbar, applyButton: Button) {
         toolbar.title = getString(R.string.app_name)
         toolbar.setBackgroundColor(Color.TRANSPARENT)
@@ -311,12 +318,20 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
         val previewViewModel = customizationPickerViewModel.basePreviewViewModel
         pager.apply {
             adapter = PreviewPagerAdapter { viewHolder, position ->
-                val previewCard = viewHolder.itemView.requireViewById<View>(R.id.preview_card)
+                val previewLabel: TextView = viewHolder.itemView.requireViewById(R.id.preview_label)
+                val previewCard: View = viewHolder.itemView.requireViewById(R.id.preview_card)
+
                 val screen =
                     if (position == 0) {
                         LOCK_SCREEN
                     } else {
                         HOME_SCREEN
+                    }
+
+                previewLabel.text =
+                    when (screen) {
+                        LOCK_SCREEN -> view.resources.getString(R.string.lock_screen_tab)
+                        HOME_SCREEN -> view.resources.getString(R.string.home_screen_tab)
                     }
 
                 if (screen == LOCK_SCREEN) {
@@ -428,20 +443,15 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
     }
 
     /**
-     * Set customization option floating sheet to the floating sheet container and get the new
-     * container's height for repositioning the preview's guideline.
+     * Set customization option floating sheet content to the floating sheet container and get the
+     * new container's height for repositioning the preview's guideline.
      */
     private fun setCustomizationOptionFloatingSheet(
-        view: View,
+        floatingSheetViewContent: View,
+        floatingSheetContainer: FrameLayout,
         motionContainer: MotionLayout,
-        option: CustomizationOption,
         onComplete: () -> Unit,
     ) {
-        val floatingSheetViewContent =
-            customizationOptionFloatingSheetViewMap?.get(option) ?: return
-
-        val floatingSheetContainer =
-            view.requireViewById<FrameLayout>(R.id.customization_option_floating_sheet_container)
         floatingSheetContainer.removeAllViews()
         floatingSheetContainer.addView(floatingSheetViewContent)
 
