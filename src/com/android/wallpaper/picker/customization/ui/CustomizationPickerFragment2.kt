@@ -257,6 +257,9 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
                     Intent(Settings.ACTION_ACCESSIBILITY_COLOR_CONTRAST_SETTINGS)
                 )
             },
+            navigateToLockScreenNotificationsSettingsActivity = {
+                activity?.startActivity(Intent(Settings.ACTION_LOCKSCREEN_NOTIFICATIONS_SETTINGS))
+            },
         )
 
         activity?.onBackPressedDispatcher?.let {
@@ -348,7 +351,7 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
                             clockHostView = clockHostView,
                             viewModel = customizationPickerViewModel,
                             colorUpdateViewModel = colorUpdateViewModel,
-                            lifecycleOwner = this@CustomizationPickerFragment2,
+                            lifecycleOwner = viewLifecycleOwner,
                             clockViewFactory = clockViewFactory,
                         )
                     }
@@ -367,7 +370,7 @@ class CustomizationPickerFragment2 : Hilt_CustomizationPickerFragment2() {
                             previewViewModel.wallpaperDisplaySize.value
                         else previewViewModel.smallerDisplaySize,
                     mainScope = mainScope,
-                    lifecycleOwner = this@CustomizationPickerFragment2,
+                    lifecycleOwner = viewLifecycleOwner,
                     wallpaperConnectionUtils = wallpaperConnectionUtils,
                     isFirstBindingDeferred = CompletableDeferred(isFirstBinding),
                     onLaunchPreview = { wallpaperModel ->
