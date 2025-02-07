@@ -107,7 +107,7 @@
     <string name="previous_page_content_description" msgid="1138597031571078429">"ก่อนหน้า"</string>
     <string name="wallpaper_title" msgid="6754214682228331092">"วอลเปเปอร์"</string>
     <string name="wallpaper_preview_card_content_description" msgid="6049261033541034584">"พรีวิววอลเปเปอร์"</string>
-    <string name="wallpaper_preview_card_content_description_editable" msgid="3111763100515242340">"ตัวอย่างวอลเปเปอร์ %1$s แตะเพื่อแก้ไขภาพ"</string>
+    <string name="wallpaper_preview_card_content_description_editable" msgid="8147628993184862003">"ตัวอย่างวอลเปเปอร์%1$sแบบ%2$s แตะสองครั้งเพื่อแก้ไขรูปภาพ"</string>
     <string name="lock_wallpaper_preview_card_content_description" msgid="5236839857695985498">"ตัวอย่างวอลเปเปอร์หน้าจอล็อก"</string>
     <string name="home_wallpaper_preview_card_content_description" msgid="4059418716070821630">"ตัวอย่างวอลเปเปอร์หน้าจอหลัก"</string>
     <string name="collection_not_exist_msg" msgid="3504852962885064842">"ไม่มีคอลเล็กชัน"</string>
@@ -144,4 +144,7 @@
     <string name="default_wallpaper_title" msgid="2541071182656978180">"วอลเปเปอร์"</string>
     <string name="small_preview_tooltip" msgid="1920430079013352071">"แตะเพื่อแก้ไขรูปภาพ"</string>
     <string name="full_preview_tooltip" msgid="4648994028015322759">"ปรับตำแหน่ง ขนาด และมุมของรูปภาพ"</string>
+    <string name="discard_changes_dialog_message" msgid="8462485277292103457">"ทิ้งการเปลี่ยนแปลงไหม"</string>
+    <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"แก้ไขต่อ"</string>
+    <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"ทิ้ง"</string>
 </resources>

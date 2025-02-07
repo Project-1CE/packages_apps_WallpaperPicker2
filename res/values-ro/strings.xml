@@ -107,7 +107,8 @@
     <string name="previous_page_content_description" msgid="1138597031571078429">"Înapoi"</string>
     <string name="wallpaper_title" msgid="6754214682228331092">"Imagine de fundal"</string>
     <string name="wallpaper_preview_card_content_description" msgid="6049261033541034584">"Previzualizarea imaginii de fundal"</string>
-    <string name="wallpaper_preview_card_content_description_editable" msgid="3111763100515242340">"Previzualizare imagine de fundal %1$s, atinge ca să editezi"</string>
+    <!-- no translation found for wallpaper_preview_card_content_description_editable (8147628993184862003) -->
+    <skip />
     <string name="lock_wallpaper_preview_card_content_description" msgid="5236839857695985498">"Previzualizarea imaginii de fundal pentru ecranul de blocare"</string>
     <string name="home_wallpaper_preview_card_content_description" msgid="4059418716070821630">"Previzualizarea imaginii de fundal pentru ecranul de pornire"</string>
     <string name="collection_not_exist_msg" msgid="3504852962885064842">"Colecția nu există"</string>
@@ -144,4 +145,7 @@
     <string name="default_wallpaper_title" msgid="2541071182656978180">"Imaginea de fundal"</string>
     <string name="small_preview_tooltip" msgid="1920430079013352071">"Atinge pentru a edita fotografia"</string>
     <string name="full_preview_tooltip" msgid="4648994028015322759">"Ajustează poziția, scara și unghiul fotografiilor"</string>
+    <string name="discard_changes_dialog_message" msgid="8462485277292103457">"Renunți la modificări?"</string>
+    <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"Continuă editarea"</string>
+    <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"Renunță"</string>
 </resources>

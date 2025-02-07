@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.wallpaper.picker.preview
+package com.android.wallpaper.picker.customization.ui.viewmodel
 
-import androidx.activity.result.contract.ActivityResultContracts
-import com.android.wallpaper.picker.BasePreviewActivity
-import dagger.hilt.android.AndroidEntryPoint
-
-@AndroidEntryPoint(BasePreviewActivity::class)
-class PreviewTestActivity : Hilt_PreviewTestActivity() {
-    val activityResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
-}
+/**
+ * View model for the discard changes dialog. The dialog shows when users leave with uncommitted
+ * customization changes.
+ */
+data class DiscardChangesDialogViewModel(
+    val onDismiss: () -> Unit,
+    val onKeepEditing: () -> Unit,
+    val onDiscard: () -> Unit,
+)

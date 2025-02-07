@@ -107,7 +107,7 @@
     <string name="previous_page_content_description" msgid="1138597031571078429">"පෙර"</string>
     <string name="wallpaper_title" msgid="6754214682228331092">"වෝල්පේපරය"</string>
     <string name="wallpaper_preview_card_content_description" msgid="6049261033541034584">"වෝල්පේපර පෙරදසුන"</string>
-    <string name="wallpaper_preview_card_content_description_editable" msgid="3111763100515242340">"වෝල්පේපර පෙරදසුන %1$s, ඔබේ ඡායාරූපය සංස්කරණය කිරීමට තට්ටු කරන්න"</string>
+    <string name="wallpaper_preview_card_content_description_editable" msgid="8147628993184862003">"%1$s වෝල්පේපර පෙරදසුන %2$s, ඔබේ ඡායාරූපය සංස්කරණය කිරීමට දෙවරක් තට්ටු කරන්න"</string>
     <string name="lock_wallpaper_preview_card_content_description" msgid="5236839857695985498">"අගුළු තිර වෝල්පේපර පෙරදසුන"</string>
     <string name="home_wallpaper_preview_card_content_description" msgid="4059418716070821630">"මුල් තිරයේ බිතුපත් පෙරදසුන"</string>
     <string name="collection_not_exist_msg" msgid="3504852962885064842">"එකතුව නොපවතී"</string>
@@ -144,4 +144,7 @@
     <string name="default_wallpaper_title" msgid="2541071182656978180">"වෝල්පේපරය"</string>
     <string name="small_preview_tooltip" msgid="1920430079013352071">"ඔබේ ඡායාරූපය සංස්කරණය කිරීමට තට්ටු කරන්න"</string>
     <string name="full_preview_tooltip" msgid="4648994028015322759">"ඔබේ ඡායාරූපවල පිහිටීම, පරිමාණය, සහ කෝණය සකසන්න"</string>
+    <string name="discard_changes_dialog_message" msgid="8462485277292103457">"වෙනස් කිරීම් ඉවත ලන්නද?"</string>
+    <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"දිගටම සංස්කරණ කරන්න"</string>
+    <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"ඉවත ලන්න"</string>
 </resources>

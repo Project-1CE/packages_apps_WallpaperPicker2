@@ -392,8 +392,9 @@
     <string name="wallpaper_preview_card_content_description">Wallpaper preview</string>
 
     <!-- Content description of wallpaper preview card when preview can be edited, including folded state of preview.
-         Placeholder is replaced by folded/unfolded state of the preview for foldables, empty string for other devices.[CHAR_LIMIT=NONE]-->
-    <string name="wallpaper_preview_card_content_description_editable">Wallpaper preview %1$s, tap to edit your photo</string>
+         First placeholder is replaced by the type of screen, home screen/ lock screen
+         Second placeholder is replaced by folded/unfolded state of the preview for foldables, empty string for other devices.[CHAR_LIMIT=NONE]-->
+    <string name="wallpaper_preview_card_content_description_editable">%1$s wallpaper preview %2$s, double tap to edit your photo</string>
 
     <!-- Content description of lock screen wallpaper preview card. [CHAR_LIMIT=NONE]-->
     <string name="lock_wallpaper_preview_card_content_description">Lock screen wallpaper preview</string>
@@ -561,6 +562,25 @@
     [CHAR LIMIT=128].
     -->
     <string name="full_preview_tooltip">Adjust the position, scale, and angle of your photos</string>
+
+    <!--
+     The message in the dialog that asks users if they want to discard all changes when they leave
+     a customization screen, e.g. clock, color, shortcut customization screen, without applying any
+     changes.
+    -->
+    <string name="discard_changes_dialog_message">Discard changes?</string>
+
+    <!--
+     The positive button content in the dialog that asks users if they want to discard all changes,
+     when users want to keep editing.
+    -->
+    <string name="discard_changes_dialog_button_keep_editing">Keep editing</string>
+
+    <!--
+     The negative button content in the dialog that asks users if they want to discard all changes,
+     when users want to discard changes and leave the screen.
+    -->
+    <string name="discard_changes_dialog_button_discard">Discard</string>
 
     <string name="tab_placeholder_text" translatable="false">Tab</string>
 </resources>

@@ -107,7 +107,8 @@
     <string name="previous_page_content_description" msgid="1138597031571078429">"Vorige"</string>
     <string name="wallpaper_title" msgid="6754214682228331092">"Muurpapier"</string>
     <string name="wallpaper_preview_card_content_description" msgid="6049261033541034584">"Muurpapiervoorskou"</string>
-    <string name="wallpaper_preview_card_content_description_editable" msgid="3111763100515242340">"Muurpapiervoorskou %1$s, tik en wysig jou foto"</string>
+    <!-- no translation found for wallpaper_preview_card_content_description_editable (8147628993184862003) -->
+    <skip />
     <string name="lock_wallpaper_preview_card_content_description" msgid="5236839857695985498">"Voorskou van sluitskerm se muurpapier"</string>
     <string name="home_wallpaper_preview_card_content_description" msgid="4059418716070821630">"Voorskou van tuisskerm se muurpapier"</string>
     <string name="collection_not_exist_msg" msgid="3504852962885064842">"Die versameling bestaan nie"</string>
@@ -144,4 +145,7 @@
     <string name="default_wallpaper_title" msgid="2541071182656978180">"Muurpapier"</string>
     <string name="small_preview_tooltip" msgid="1920430079013352071">"Tik om jou foto te redigeer"</string>
     <string name="full_preview_tooltip" msgid="4648994028015322759">"Pas die posisie, skaal en hoek van jou foto\'s aan"</string>
+    <string name="discard_changes_dialog_message" msgid="8462485277292103457">"Gooi veranderinge weg?"</string>
+    <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"Hou aan wysig"</string>
+    <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"Gooi weg"</string>
 </resources>

@@ -107,7 +107,8 @@
     <string name="previous_page_content_description" msgid="1138597031571078429">"ਪਿੱਛੇ ਜਾਓ"</string>
     <string name="wallpaper_title" msgid="6754214682228331092">"ਵਾਲਪੇਪਰ"</string>
     <string name="wallpaper_preview_card_content_description" msgid="6049261033541034584">"ਵਾਲਪੇਪਰ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
-    <string name="wallpaper_preview_card_content_description_editable" msgid="3111763100515242340">"ਵਾਲਪੇਪਰ ਦੀ ਪੂਰਵ-ਝਲਕ %1$s, ਆਪਣੀ ਫ਼ੋਟੋ ਦਾ ਸੰਪਾਦਨ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ"</string>
+    <!-- no translation found for wallpaper_preview_card_content_description_editable (8147628993184862003) -->
+    <skip />
     <string name="lock_wallpaper_preview_card_content_description" msgid="5236839857695985498">"ਲਾਕ ਸਕ੍ਰੀਨ ਵਾਲਪੇਪਰ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="home_wallpaper_preview_card_content_description" msgid="4059418716070821630">"ਹੋਮ ਸਕ੍ਰੀਨ ਵਾਲਪੇਪਰ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="collection_not_exist_msg" msgid="3504852962885064842">"ਸੰਗ੍ਰਹਿ ਮੌਜੂਦ ਨਹੀਂ ਹੈ"</string>
@@ -144,4 +145,7 @@
     <string name="default_wallpaper_title" msgid="2541071182656978180">"ਵਾਲਪੇਪਰ"</string>
     <string name="small_preview_tooltip" msgid="1920430079013352071">"ਆਪਣੀ ਫ਼ੋਟੋ ਦਾ ਸੰਪਾਦਨ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ"</string>
     <string name="full_preview_tooltip" msgid="4648994028015322759">"ਆਪਣੀਆਂ ਫ਼ੋਟੋਆਂ ਦੀ ਸਥਿਤੀ, ਸਕੇਲ ਅਤੇ ਕੋਣ ਨੂੰ ਵਿਵਸਥਿਤ ਕਰੋ"</string>
+    <string name="discard_changes_dialog_message" msgid="8462485277292103457">"ਕੀ ਤਬਦੀਲੀਆਂ ਨੂੰ ਬਰਖਾਸਤ ਕਰਨਾ ਹੈ?"</string>
+    <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"ਸੰਪਾਦਨ ਕਰਨਾ ਜਾਰੀ ਰੱਖੋ"</string>
+    <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"ਬਰਖਾਸਤ ਕਰੋ"</string>
 </resources>
