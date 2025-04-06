@@ -18,9 +18,11 @@ package com.android.wallpaper.modules
 import com.android.wallpaper.effects.DefaultEffectsController
 import com.android.wallpaper.effects.EffectsController
 import com.android.wallpaper.module.DefaultPartnerProvider
+import com.android.wallpaper.module.DefaultRecentWallpaperManager
 import com.android.wallpaper.module.DefaultWallpaperPreferences
 import com.android.wallpaper.module.Injector
 import com.android.wallpaper.module.PartnerProvider
+import com.android.wallpaper.module.RecentWallpaperManager
 import com.android.wallpaper.module.WallpaperPicker2Injector
 import com.android.wallpaper.module.WallpaperPreferences
 import com.android.wallpaper.module.logging.NoOpUserEventLogger
@@ -29,12 +31,16 @@ import com.android.wallpaper.picker.category.domain.interactor.CategoriesLoading
 import com.android.wallpaper.picker.category.domain.interactor.CategoryInteractor
 import com.android.wallpaper.picker.category.domain.interactor.CreativeCategoryInteractor
 import com.android.wallpaper.picker.category.domain.interactor.CuratedPhotosInteractor
+import com.android.wallpaper.picker.category.domain.interactor.OnDeviceWallpapersInteractor
 import com.android.wallpaper.picker.category.domain.interactor.ThirdPartyCategoryInteractor
 import com.android.wallpaper.picker.category.domain.interactor.implementations.CategoryInteractorImpl
 import com.android.wallpaper.picker.category.domain.interactor.implementations.CreativeCategoryInteractorImpl
 import com.android.wallpaper.picker.category.domain.interactor.implementations.DefaultCategoriesLoadingStatusInteractor
 import com.android.wallpaper.picker.category.domain.interactor.implementations.DefaultCuratedPhotosInteractorImpl
+import com.android.wallpaper.picker.category.domain.interactor.implementations.DefaultOnDeviceWallpapersInteractor
 import com.android.wallpaper.picker.category.domain.interactor.implementations.ThirdPartyCategoryInteractorImpl
+import com.android.wallpaper.picker.category.ui.binder.BannerProvider
+import com.android.wallpaper.picker.category.ui.binder.DefaultBannerProvider
 import com.android.wallpaper.picker.category.ui.view.providers.IndividualPickerFactory
 import com.android.wallpaper.picker.category.ui.view.providers.implementation.DefaultIndividualPickerFactory
 import com.android.wallpaper.picker.category.wrapper.DefaultWallpaperCategoryWrapper
@@ -62,6 +68,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class WallpaperPicker2AppModule {
 
+    @Binds @Singleton abstract fun bindBannerProvider(impl: DefaultBannerProvider): BannerProvider
+
     @Binds
     @Singleton
     abstract fun bindCreativeCategoryInteractor(
@@ -87,6 +95,12 @@ abstract class WallpaperPicker2AppModule {
     @Binds
     @Singleton
     abstract fun bindGoogleCategoryInteractor(impl: CategoryInteractorImpl): CategoryInteractor
+
+    @Binds
+    @Singleton
+    abstract fun bindOnDeviceWallpapersInteractor(
+        impl: DefaultOnDeviceWallpapersInteractor
+    ): OnDeviceWallpapersInteractor
 
     @Binds
     @Singleton
@@ -145,6 +159,12 @@ abstract class WallpaperPicker2AppModule {
     abstract fun bindWorkspaceCallbackBinder(
         impl: DefaultWorkspaceCallbackBinder
     ): WorkspaceCallbackBinder
+
+    @Binds
+    @Singleton
+    abstract fun bindRecentWallpaperManager(
+        impl: DefaultRecentWallpaperManager
+    ): RecentWallpaperManager
 
     companion object {
 

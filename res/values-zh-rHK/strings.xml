@@ -24,6 +24,7 @@
     <string name="set_wallpaper_button_text" msgid="5445978864530156290">"設定桌布"</string>
     <string name="set_wallpaper_progress_message" msgid="7986528287618716715">"正在設定桌布…"</string>
     <string name="try_again" msgid="8278874823700921234">"再試一次"</string>
+    <string name="select_a_photo" msgid="7273925950262860696">"選取相片"</string>
     <string name="set_wallpaper_error_message" msgid="6819986999041085130">"無法設定桌布。"</string>
     <string name="load_wallpaper_error_message" msgid="7913278480467707374">"無法載入桌布。圖片已損壞或無法使用。"</string>
     <string name="static_wallpaper_presentation_mode_message" msgid="417940227049360906">"目前設定"</string>
@@ -150,4 +151,9 @@
     <string name="discard_changes_dialog_message" msgid="8462485277292103457">"要捨棄變更？"</string>
     <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"繼續編輯"</string>
     <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"捨棄"</string>
+    <string name="action_zoom_in" msgid="3326782160671405449">"放大"</string>
+    <string name="action_zoom_out" msgid="5454911090443175449">"縮小"</string>
+    <string name="zoomed_to_percent" msgid="1243039994190840132">"已經縮放到 %d%%"</string>
+    <string name="max_zoom_percentage" msgid="2111670558746866030">"已經放到最大"</string>
+    <string name="min_zoom_percentage" msgid="5931879817379214316">"已經縮到最細"</string>
 </resources>

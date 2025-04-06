@@ -41,6 +41,8 @@ abstract class BaseFlags {
 
     open fun isWallpaperEffectEnabled() = false
 
+    open fun isPackThemeEnabled() = false
+
     open fun isWallpaperEffectModelDownloadEnabled() = true
 
     open fun isInterruptModelDownloadEnabled() = false
@@ -62,6 +64,10 @@ abstract class BaseFlags {
     open fun isMultiCropEnabled() = WallpaperManager.isMultiCropEnabled()
 
     open fun isComposeRefactorEnabled() = composeRefactorFlag()
+
+    // This is just a local flag in order to ensure right behaviour in case
+    // something goes wrong with PhotoPicker integration.
+    open fun isPhotoPickerEnabled() = false
 
     open fun isKeyguardQuickAffordanceEnabled(context: Context): Boolean {
         return getCachedFlags(context)

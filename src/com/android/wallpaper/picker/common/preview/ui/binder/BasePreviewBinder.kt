@@ -18,6 +18,7 @@ package com.android.wallpaper.picker.common.preview.ui.binder
 
 import android.content.Context
 import android.graphics.Point
+import android.view.SurfaceView
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -47,6 +48,7 @@ import kotlinx.coroutines.launch
 // (workspace binding to be added). Also we enable a screen to be defined during binding rather than
 // reading from viewModel.isViewAsHome.
 object BasePreviewBinder {
+
     fun bind(
         applicationContext: Context,
         view: View,
@@ -64,6 +66,8 @@ object BasePreviewBinder {
         onTransitionToScreen: ((Screen) -> Unit)? = null,
         clockViewFactory: ClockViewFactory,
     ) {
+        val wallpaperSurface: SurfaceView = view.requireViewById(R.id.wallpaper_surface)
+        val workspaceSurface: SurfaceView = view.requireViewById(R.id.workspace_surface)
 
         lifecycleOwner.lifecycleScope.launch {
             lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -91,7 +95,7 @@ object BasePreviewBinder {
 
         WallpaperPreviewBinder.bind(
             applicationContext = applicationContext,
-            surfaceView = view.requireViewById(R.id.wallpaper_surface),
+            surfaceView = wallpaperSurface,
             viewModel = viewModel.basePreviewViewModel,
             screen = screen,
             displaySize = displaySize,
@@ -103,7 +107,7 @@ object BasePreviewBinder {
         )
 
         WorkspacePreviewBinder.bind(
-            surfaceView = view.requireViewById(R.id.workspace_surface),
+            surfaceView = workspaceSurface,
             viewModel = viewModel,
             colorUpdateViewModel = colorUpdateViewModel,
             workspaceCallbackBinder = workspaceCallbackBinder,

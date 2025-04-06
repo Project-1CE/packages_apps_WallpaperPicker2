@@ -65,6 +65,7 @@ object CustomizationPickerBinder2 {
         navigateToColorContrastSettingsActivity: () -> Unit,
         navigateToLockScreenNotificationsSettingsActivity: () -> Unit,
         navigateToPreviewScreen: ((wallpaperModel: WallpaperModel) -> Unit)?,
+        navigateToPackThemeActivity: () -> Unit,
     ) {
         val lockCustomizationOptionContainer: LinearLayout =
             view.requireViewById(R.id.lock_customization_option_container)
@@ -102,16 +103,14 @@ object CustomizationPickerBinder2 {
                         when (it) {
                             LOCK_SCREEN -> {
                                 if (previewPager.currentState != R.id.lock_preview_selected) {
-                                    previewPager.setTransitionDuration(0)
-                                    previewPager.transitionToState(R.id.lock_preview_selected)
+                                    previewPager.jumpToState(R.id.lock_preview_selected)
                                 }
                                 lockCustomizationOptionContainer.isInvisible = false
                                 homeCustomizationOptionContainer.isInvisible = true
                             }
                             HOME_SCREEN -> {
                                 if (previewPager.currentState != R.id.home_preview_selected) {
-                                    previewPager.setTransitionDuration(0)
-                                    previewPager.transitionToState(R.id.home_preview_selected)
+                                    previewPager.jumpToState(R.id.home_preview_selected)
                                 }
                                 lockCustomizationOptionContainer.isInvisible = true
                                 homeCustomizationOptionContainer.isInvisible = false
@@ -142,6 +141,7 @@ object CustomizationPickerBinder2 {
             navigateToMoreLockScreenSettingsActivity,
             navigateToColorContrastSettingsActivity,
             navigateToLockScreenNotificationsSettingsActivity,
+            navigateToPackThemeActivity,
         )
     }
 }

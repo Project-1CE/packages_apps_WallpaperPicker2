@@ -22,7 +22,7 @@ import static android.app.WallpaperManager.FLAG_SYSTEM;
 import android.annotation.SuppressLint;
 import android.app.WallpaperInfo;
 import android.app.WallpaperManager;
-import android.app.wallpaper.WallpaperInstance;
+import android.app.wallpaper.WallpaperDescription;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -143,15 +143,27 @@ public class DefaultWallpaperRefresher implements WallpaperRefresher {
                         mWallpaperPreferences.getHomeWallpaperActionUrl(),
                         mWallpaperPreferences.getHomeWallpaperCollectionId(),
                         /* wallpaperComponent= */ null,
-                        getCurrentWallpaperCropHints(FLAG_SYSTEM)));
+                        getCurrentWallpaperCropHints(FLAG_SYSTEM),
+                        mWallpaperPreferences.getHomeWallpaperImageUri()));
             } else {
                 Uri previewUri = mCreativeHelper.getCreativePreviewUri(mAppContext, homeInfo,
                         WallpaperDestination.HOME);
                 if (liveWallpaperContentHandling()) {
-                    WallpaperInstance instance = mWallpaperManager.getWallpaperInstance(
-                            FLAG_SYSTEM);
+                    WallpaperDescription description = mWallpaperManager.getWallpaperInstance(
+                            FLAG_SYSTEM).getDescription();
+                    if (description.getId() == null && description.getContent()
+                            .keySet().isEmpty()) {
+                        // There's no content, so this may be a creative that was set before
+                        // enabling content handling
+                        WallpaperDescription updatedDescription =
+                                mCreativeHelper.getCreativeDescription(mAppContext, homeInfo,
+                                        WallpaperDestination.HOME);
+                        if (updatedDescription != null) {
+                            description = updatedDescription;
+                        }
+                    }
                     wallpaperMetadatas.add(new LiveWallpaperMetadata(homeInfo, previewUri,
-                            instance.getDescription()));
+                            description));
                 } else {
                     wallpaperMetadatas.add(new LiveWallpaperMetadata(homeInfo, previewUri));
                 }
@@ -178,14 +190,27 @@ public class DefaultWallpaperRefresher implements WallpaperRefresher {
                         mWallpaperPreferences.getLockWallpaperActionUrl(),
                         mWallpaperPreferences.getLockWallpaperCollectionId(),
                         /* wallpaperComponent= */ null,
-                        getCurrentWallpaperCropHints(FLAG_LOCK)));
+                        getCurrentWallpaperCropHints(FLAG_LOCK),
+                        mWallpaperPreferences.getLockWallpaperImageUri()));
             } else {
                 Uri previewUri = mCreativeHelper.getCreativePreviewUri(mAppContext, lockInfo,
                         WallpaperDestination.LOCK);
                 if (liveWallpaperContentHandling()) {
-                    WallpaperInstance instance = mWallpaperManager.getWallpaperInstance(FLAG_LOCK);
+                    WallpaperDescription description = mWallpaperManager.getWallpaperInstance(
+                            FLAG_LOCK).getDescription();
+                    if (description.getId() == null && description.getContent()
+                            .keySet().isEmpty()) {
+                        // There's no content, so this may be a creative that was set before
+                        // enabling content handling
+                        WallpaperDescription updatedDescription =
+                                mCreativeHelper.getCreativeDescription(mAppContext, lockInfo,
+                                        WallpaperDestination.LOCK);
+                        if (updatedDescription != null) {
+                            description = updatedDescription;
+                        }
+                    }
                     wallpaperMetadatas.add(new LiveWallpaperMetadata(lockInfo, previewUri,
-                            instance.getDescription()));
+                            description));
                 } else {
                     wallpaperMetadatas.add(new LiveWallpaperMetadata(lockInfo, previewUri));
                 }

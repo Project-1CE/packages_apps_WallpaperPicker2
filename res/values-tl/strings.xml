@@ -24,6 +24,7 @@
     <string name="set_wallpaper_button_text" msgid="5445978864530156290">"Itakda ang wallpaper"</string>
     <string name="set_wallpaper_progress_message" msgid="7986528287618716715">"Itinatakda ang wallpaper…"</string>
     <string name="try_again" msgid="8278874823700921234">"Subukang muli"</string>
+    <string name="select_a_photo" msgid="7273925950262860696">"Pumili ng larawan"</string>
     <string name="set_wallpaper_error_message" msgid="6819986999041085130">"Hindi maitakda ang wallpaper."</string>
     <string name="load_wallpaper_error_message" msgid="7913278480467707374">"Hindi ma-load ang wallpaper. Sira o hindi available ang larawan."</string>
     <string name="static_wallpaper_presentation_mode_message" msgid="417940227049360906">"Kasalukuyang nakatakda"</string>
@@ -150,4 +151,9 @@
     <string name="discard_changes_dialog_message" msgid="8462485277292103457">"I-discard ang pagbabago?"</string>
     <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"Mag-edit pa"</string>
     <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"I-discard"</string>
+    <string name="action_zoom_in" msgid="3326782160671405449">"Mag-zoom in"</string>
+    <string name="action_zoom_out" msgid="5454911090443175449">"Mag-zoom out"</string>
+    <string name="zoomed_to_percent" msgid="1243039994190840132">"Nag-zoom sa %d%%"</string>
+    <string name="max_zoom_percentage" msgid="2111670558746866030">"Nakuha ang maximum na zoom"</string>
+    <string name="min_zoom_percentage" msgid="5931879817379214316">"Nakuha ang minimum na zoom"</string>
 </resources>

@@ -72,7 +72,6 @@ import com.android.wallpaper.picker.category.ui.viewmodel.CategoriesViewModel.Ca
 import com.android.wallpaper.picker.category.wrapper.WallpaperCategoryWrapper
 import com.android.wallpaper.picker.customization.ui.binder.ColorUpdateBinder
 import com.android.wallpaper.picker.customization.ui.viewmodel.ColorUpdateViewModel
-import com.android.wallpaper.picker.preview.ui.Hilt_WallpaperPreviewActivity.SHOULD_CATEGORY_REFRESH
 import com.android.wallpaper.util.ActivityUtils
 import com.android.wallpaper.util.LaunchUtils
 import com.android.wallpaper.util.SizeCalculator
@@ -107,6 +106,7 @@ class IndividualPickerFragment2 :
         private const val SPECIAL_FIXED_TILE_ADAPTER_POSITION = 0
 
         private const val ARG_CATEGORY_COLLECTION_ID = "category_collection_id"
+        private const val ARG_CATEGORY_TYPE = "category_type"
 
         private const val UNUSED_REQUEST_CODE = 1
         private const val TAG_START_ROTATION_DIALOG = "start_rotation_dialog"
@@ -131,7 +131,7 @@ class IndividualPickerFragment2 :
         ): IndividualPickerFragment2 {
             val args = Bundle()
             args.putString(ARG_CATEGORY_COLLECTION_ID, collectionId)
-            args.putSerializable(SHOULD_CATEGORY_REFRESH, categoryType)
+            args.putSerializable(ARG_CATEGORY_TYPE, categoryType)
             val fragment = IndividualPickerFragment2()
             fragment.arguments = args
             return fragment
@@ -182,8 +182,7 @@ class IndividualPickerFragment2 :
         isNewPickerUi = BaseFlags.get().isNewPickerUi()
 
         refreshCreativeCategories =
-            arguments?.getSerializable(SHOULD_CATEGORY_REFRESH, CategoryType::class.java)
-                as? CategoryType
+            arguments?.getSerializable(ARG_CATEGORY_TYPE, CategoryType::class.java) as? CategoryType
         items = ArrayList()
 
         // Clear Glide's cache if night-mode changed to ensure thumbnails are reloaded
@@ -226,7 +225,7 @@ class IndividualPickerFragment2 :
                     // TODO (b/385059403): Remove these log lines once the bug is fixed
                     if (arguments == null) {
                         Log.w(TAG, "Arguments are null!")
-                    } else if (arguments.getString(ARG_CATEGORY_COLLECTION_ID) == null) {
+                    } else if (arguments?.getString(ARG_CATEGORY_COLLECTION_ID) == null) {
                         Log.w(TAG, "Category Collection ID is null or missing in arguments.")
                     }
                     parentFragmentManager.popBackStack()

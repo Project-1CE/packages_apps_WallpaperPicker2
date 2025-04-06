@@ -33,14 +33,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
 import com.android.wallpaper.R
 import com.android.wallpaper.config.BaseFlags
 import com.android.wallpaper.model.ImageWallpaperInfo
 import com.android.wallpaper.module.MultiPanesChecker
 import com.android.wallpaper.picker.AppbarFragment
-import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener
+import com.android.wallpaper.picker.MyPhotosStarter
 import com.android.wallpaper.picker.WallpaperPickerDelegate.VIEW_ONLY_PREVIEW_WALLPAPER_REQUEST_CODE
+import com.android.wallpaper.picker.category.ui.binder.BannerProvider
 import com.android.wallpaper.picker.category.ui.binder.CategoriesBinder
 import com.android.wallpaper.picker.category.ui.view.providers.IndividualPickerFactory
 import com.android.wallpaper.picker.category.ui.viewmodel.CategoriesViewModel
@@ -67,7 +70,7 @@ class CategoriesFragment : Hilt_CategoriesFragment() {
     @Inject lateinit var myPhotosStarterImpl: MyPhotosStarterImpl
     @Inject lateinit var wallpaperModelFactory: WallpaperModelFactory
     @Inject lateinit var colorUpdateViewModel: ColorUpdateViewModel
-
+    @Inject lateinit var bannerProvider: BannerProvider
     private lateinit var photoPickerLauncher: ActivityResultLauncher<Intent>
 
     // TODO: this may need to be scoped to fragment if the architecture changes
@@ -129,6 +132,7 @@ class CategoriesFragment : Hilt_CategoriesFragment() {
             windowWidth = SizeCalculator.getActivityWindowWidthPx(this.activity),
             colorUpdateViewModel = colorUpdateViewModel,
             shouldAnimateColor = { false },
+            bannerProvider = bannerProvider,
             lifecycleOwner = viewLifecycleOwner,
         ) { navigationEvent, callback ->
             when (navigationEvent) {
@@ -141,22 +145,29 @@ class CategoriesFragment : Hilt_CategoriesFragment() {
                     )
                 }
                 is CategoriesViewModel.NavigationEvent.NavigateToPhotosPicker -> {
-                    // make call to permission handler to grab photos and pass callback
-                    myPhotosStarterImpl.requestCustomPhotoPicker(
-                        object : PermissionChangedListener {
-                            override fun onPermissionsGranted() {
-                                callback?.invoke()
-                            }
-
-                            override fun onPermissionsDenied(dontAskAgain: Boolean) {
-                                if (dontAskAgain) {
-                                    showPermissionSnackbar()
+                    if (BaseFlags.get().isPhotoPickerEnabled()) {
+                        parentFragmentManager.commit {
+                            replace<PhotoPickerFragment>(R.id.fragment_container)
+                            addToBackStack(null)
+                        }
+                    } else {
+                        // make call to permission handler to grab photos and pass callback
+                        myPhotosStarterImpl.requestCustomPhotoPicker(
+                            object : MyPhotosStarter.PermissionChangedListener {
+                                override fun onPermissionsGranted() {
+                                    callback?.invoke()
                                 }
-                            }
-                        },
-                        requireActivity(),
-                        photoPickerLauncher,
-                    )
+
+                                override fun onPermissionsDenied(dontAskAgain: Boolean) {
+                                    if (dontAskAgain) {
+                                        showPermissionSnackbar()
+                                    }
+                                }
+                            },
+                            requireActivity(),
+                            photoPickerLauncher,
+                        )
+                    }
                 }
                 is CategoriesViewModel.NavigationEvent.NavigateToThirdParty -> {
                     startThirdPartyCategoryActivity(

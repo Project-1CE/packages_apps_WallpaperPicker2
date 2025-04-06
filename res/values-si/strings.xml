@@ -24,6 +24,7 @@
     <string name="set_wallpaper_button_text" msgid="5445978864530156290">"වෝල්පේපරය සකසන්න"</string>
     <string name="set_wallpaper_progress_message" msgid="7986528287618716715">"වෝල්පේපරය සකසමින්…"</string>
     <string name="try_again" msgid="8278874823700921234">"නැවත උත්සාහ කර."</string>
+    <string name="select_a_photo" msgid="7273925950262860696">"ඡායාරූපයක් තෝරන්න"</string>
     <string name="set_wallpaper_error_message" msgid="6819986999041085130">"වෝල්පේපරය සැකසීමට නොහැකිය."</string>
     <string name="load_wallpaper_error_message" msgid="7913278480467707374">"වෝල්පේපරය පූරණය කිරීමට නොහැකිය. මෙම රූපය හානි වී හෝ ලබා ගත නොහැකිව ඇත."</string>
     <string name="static_wallpaper_presentation_mode_message" msgid="417940227049360906">"දැනට සකසා ඇත"</string>
@@ -150,4 +151,9 @@
     <string name="discard_changes_dialog_message" msgid="8462485277292103457">"වෙනස් කිරීම් ඉවත ලන්නද?"</string>
     <string name="discard_changes_dialog_button_keep_editing" msgid="9118931326834547216">"දිගටම සංස්කරණ කරන්න"</string>
     <string name="discard_changes_dialog_button_discard" msgid="6585071548322908206">"ඉවත ලන්න"</string>
+    <string name="action_zoom_in" msgid="3326782160671405449">"විශාලනය කරන්න"</string>
+    <string name="action_zoom_out" msgid="5454911090443175449">"විශාලනය අඩු කරන්න"</string>
+    <string name="zoomed_to_percent" msgid="1243039994190840132">"%d%% දක්වා විශාලනය කරන ලදි"</string>
+    <string name="max_zoom_percentage" msgid="2111670558746866030">"උපරිම විශාලනය ලබා ගන්නා ලදි"</string>
+    <string name="min_zoom_percentage" msgid="5931879817379214316">"අවම විශාලනය ලබා ගන්නා ලදි"</string>
 </resources>

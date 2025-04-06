@@ -17,8 +17,10 @@ package com.android.wallpaper
 
 import com.android.wallpaper.effects.EffectsController
 import com.android.wallpaper.effects.FakeEffectsController
+import com.android.wallpaper.module.DefaultRecentWallpaperManager
 import com.android.wallpaper.module.Injector
 import com.android.wallpaper.module.PartnerProvider
+import com.android.wallpaper.module.RecentWallpaperManager
 import com.android.wallpaper.module.WallpaperPreferences
 import com.android.wallpaper.module.logging.TestUserEventLogger
 import com.android.wallpaper.module.logging.UserEventLogger
@@ -27,6 +29,7 @@ import com.android.wallpaper.network.Requester
 import com.android.wallpaper.picker.category.client.DefaultWallpaperCategoryClient
 import com.android.wallpaper.picker.category.domain.interactor.CategoryInteractor
 import com.android.wallpaper.picker.category.domain.interactor.CuratedPhotosInteractor
+import com.android.wallpaper.picker.category.domain.interactor.OnDeviceWallpapersInteractor
 import com.android.wallpaper.picker.category.domain.interactor.ThirdPartyCategoryInteractor
 import com.android.wallpaper.picker.category.ui.view.providers.IndividualPickerFactory
 import com.android.wallpaper.picker.category.ui.view.providers.implementation.DefaultIndividualPickerFactory
@@ -45,6 +48,7 @@ import com.android.wallpaper.testing.FakeDefaultPhotosErrorConvertor
 import com.android.wallpaper.testing.FakeDefaultRequester
 import com.android.wallpaper.testing.FakeDefaultWallpaperCategoryClient
 import com.android.wallpaper.testing.FakeDefaultWallpaperModelFactory
+import com.android.wallpaper.testing.FakeOnDeviceWallpapersInteractor
 import com.android.wallpaper.testing.FakeThirdPartyCategoryInteractor
 import com.android.wallpaper.testing.FakeWallpaperCategoryWrapper
 import com.android.wallpaper.testing.TestInjector
@@ -111,6 +115,12 @@ abstract class WallpaperPicker2TestModule {
 
     @Binds @Singleton abstract fun bindInjector(impl: TestInjector): Injector
 
+    @Binds
+    @Singleton
+    abstract fun bindOnDeviceWallpapersInteractor(
+        impl: FakeOnDeviceWallpapersInteractor
+    ): OnDeviceWallpapersInteractor
+
     @Binds @Singleton abstract fun bindPartnerProvider(impl: TestPartnerProvider): PartnerProvider
 
     @Binds @Singleton abstract fun bindRequester(impl: FakeDefaultRequester): Requester
@@ -146,4 +156,10 @@ abstract class WallpaperPicker2TestModule {
     abstract fun bindWorkspaceCallbackBinder(
         impl: DefaultWorkspaceCallbackBinder
     ): WorkspaceCallbackBinder
+
+    @Binds
+    @Singleton
+    abstract fun bindRecentWallpaperManager(
+        impl: DefaultRecentWallpaperManager
+    ): RecentWallpaperManager
 }
